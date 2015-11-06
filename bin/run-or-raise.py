@@ -21,9 +21,9 @@ if __name__ == "__main__":
 		print("{} property regexp command".format(sys.argv[0]), file=sys.stderr)
 		sys.exit(1)
 	_, prop, regexp, *command = sys.argv
-	results = list(find_windows(property(prop, regexp)))
-	if results:
-		i3.focus(con_id=results[0]["id"])
+	window = next(find_windows(property(prop, regexp)), None)
+	if window:
+		i3.focus(con_id=window["id"])
 	else:
 		subprocess.call(command)
 
