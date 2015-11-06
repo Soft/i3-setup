@@ -1,0 +1,159 @@
+
+# Variables
+set $mod Mod4
+set $term urxvt
+set $wmpath ~/.config/i3
+
+# Colors
+client.focused #3f8f75 #5fd7af #000000 #000000
+client.unfocused #004360 #005f87 #efefef #000000
+client.urgent #ad7600 #ffaf00 #000000 #000000
+
+# Fonts
+font pango:Cantarell 9
+
+# Floating
+floating_modifier $mod
+bindsym $mod+Shift+f floating toggle
+bindsym $mod+f focus mode_toggle
+
+# Launchers
+bindsym Control+space exec \
+	"j4-dmenu-desktop --dmenu='rofi -dmenu -i'"
+bindsym $mod+a exec \
+	rofi -show window
+
+# Application Bindings
+bindsym $mod+Shift+Return exec --no-startup-id \
+	$term
+bindsym Print exec --no-startup-id \
+	"scrot -q100"
+bindsym $mod+Shift+g exec --no-startup-id \
+	slock
+bindsym $mod+Shift+s exec --no-startup-id \
+	killall -USR1 redshift
+bindsym $mod+Shift+b exec \
+	$wmpath/bin/run-or-raise.py class Firefox firefox
+bindsym $mod+Shift+p exec \
+	$wmpath/bin/run-or-raise.py class Pcmanfm pcmanfm
+bindsym $mod+Shift+d exec \
+	$wmpath/bin/run-or-raise.py class Emacs emacsclient -c -n
+bindsym $mod+Shift+a exec --no-startup-id \
+	$wmpath/bin/run-or-raise.py title tmux urxvt -e tmux attach
+
+# Media Keys
+bindsym $mod+y exec --no-startup-id \
+	$wmpath/bin/mpris2-control.sh prev
+bindsym $mod+u exec --no-startup-id \
+	$wmpath/bin/mpris2-control.sh toggle
+bindsym $mod+i exec --no-startup-id \
+	$wmpath/bin/mpris2-control.sh next
+
+# Window Rules
+for_window [class="mpv"] floating enable
+for_window [class="Qemu-*"] floating enable
+for_window [class="Xmessage"] floating enable
+for_window [class="Remote-viewer"] floating enable
+
+# Focus
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+
+bindsym $mod+o focus parent
+bindsym $mod+p focus child
+
+bindsym $mod+e focus output right
+bindsym $mod+w focus output right
+
+mode "move" {
+	 bindsym h focus left
+	 bindsym j focus down
+	 bindsym k focus up
+	 bindsym l focus right
+
+	 bindsym o focus parent
+	 bindsym p focus child
+
+	 bindsym e focus output right
+	 bindsym w focus output right
+
+	bindsym Escape mode "default"
+	bindsym Control+g mode "default"
+}
+
+bindsym $mod+minus mode "move"
+
+# Move
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+
+bindsym $mod+Shift+c kill
+
+bindsym $mod+Shift+e move container to output right
+bindsym $mod+Shift+w move container to output left
+
+# Splitting
+bindsym $mod+v split h
+bindsym $mod+s split v
+
+# Layouts
+bindsym $mod+b layout stacking
+bindsym $mod+n layout tabbed
+bindsym $mod+m layout toggle split
+
+# Workspaces
+workspace_auto_back_and_forth yes
+bindsym $mod+BackSpace workspace back_and_forth
+bindsym $mod+Shift+period exec --no-desktop-id \
+	$wmpath/bin/swap-ws.py
+
+bindsym $mod+1 workspace 1
+bindsym $mod+2 workspace 2
+bindsym $mod+3 workspace 3
+bindsym $mod+4 workspace 4
+bindsym $mod+5 workspace 5
+bindsym $mod+6 workspace 6
+bindsym $mod+7 workspace 7
+bindsym $mod+8 workspace 8
+bindsym $mod+9 workspace 9
+bindsym $mod+0 workspace 10
+
+bindsym $mod+Shift+1 move container to workspace 1
+bindsym $mod+Shift+2 move container to workspace 2
+bindsym $mod+Shift+3 move container to workspace 3
+bindsym $mod+Shift+4 move container to workspace 4
+bindsym $mod+Shift+5 move container to workspace 5
+bindsym $mod+Shift+6 move container to workspace 6
+bindsym $mod+Shift+7 move container to workspace 7
+bindsym $mod+Shift+8 move container to workspace 8
+bindsym $mod+Shift+9 move container to workspace 9
+bindsym $mod+Shift+0 move container to workspace 10
+
+# Reloading and quiting
+bindsym $mod+r reload
+bindsym $mod+Shift+r restart
+bindsym $mod+q exec \
+	i3-nagbar -t warning -m 'Do you really want to exit i3?' -b 'Yes' 'i3-msg exit'
+
+# Resizing
+mode "resize" {
+	bindsym h resize grow width 10 px or 10 ppt
+	bindsym j resize grow height 10 px or 10 ppt
+	bindsym k resize shrink height 10 px or 10 ppt
+	bindsym l resize shrink width 10 px or 10 ppt
+	bindsym Escape mode "default"
+	bindsym Control+g mode "default"
+}
+
+bindsym $mod+comma mode "resize"
+
+# Bar
+bar {
+	font pango:Terminus 11px
+	status_command exec $wmpath/bin/conky-wrap.sh $wmpath
+	position top
+}

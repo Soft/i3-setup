@@ -1,0 +1,44 @@
+background no
+cpu_avg_samples 2
+net_avg_samples 2
+no_buffers yes
+out_to_stderr no
+update_interval 1.0
+uppercase no
+use_spacer left
+pad_percents 2
+
+TEXT
+[
+	{
+		"full_text": "${execi 60 ~/bin/lock-status.sh}"
+	},
+	{
+		"full_text": "${execi 60 ~/bin/vpn-enabled.sh}"
+	},
+	{
+		"full_text": "<b>cpu</b> $cpu%",
+		"markup": "pango"
+	},
+	{
+		"full_text": "<b>mem</b> $memperc%",
+		"markup": "pango"
+	},
+	{
+	
+		"full_text": "<b>tku</b> ${weather http://weather.noaa.gov/pub/data/observations/metar/stations/ EFTU temperature - }",
+		"markup": "pango"
+	},
+	{
+		"full_text": "<b>mail</b> ${new_mails /mnt/storage/mail/all}",
+		"markup": "pango"
+	},
+	{
+		"full_text": "<b>feed</b> ${execi 60 ~/bin/feedbin-unread.sh}",
+		"markup": "pango"
+	},
+	{
+		"full_text": "<b>${time %a %-d.%-m %H:%M:%S}</b>",
+		"markup": "pango"
+	}
+],
