@@ -1,3 +1,6 @@
+# This file contains special characters that are best viewed with font awesome
+# installed.
+
 background no
 cpu_avg_samples 2
 net_avg_samples 2
@@ -11,34 +14,39 @@ pad_percents 2
 TEXT
 [
 	{
-		"full_text": "${execi 60 ~/bin/lock-status.sh}"
+${if_running xautolock}
+		"full_text": ""
+${else}
+		"full_text": ""
+${endif}
 	},
 	{
-		"full_text": "${execi 60 ~/bin/vpn-enabled.sh}"
+${if_up tun0}
+		"full_text": ""
+${else}
+		"full_text": ""
+${endif}
 	},
 	{
-		"full_text": "<b>cpu</b> $cpu%",
-		"markup": "pango"
+		"full_text": " $cpu%"
 	},
 	{
-		"full_text": "<b>mem</b> $memperc%",
-		"markup": "pango"
+		"full_text": " $memperc%"
 	},
 	{
-	
-		"full_text": "<b>tku</b> ${weather http://weather.noaa.gov/pub/data/observations/metar/stations/ EFTU temperature - }",
-		"markup": "pango"
+		"full_text": " ${fs_free /mnt/storage}"
 	},
 	{
-		"full_text": "<b>mail</b> ${new_mails /mnt/storage/mail/all}",
-		"markup": "pango"
+		"full_text": " ${weather http://weather.noaa.gov/pub/data/observations/metar/stations/ EFTU temperature - }℃"
 	},
 	{
-		"full_text": "<b>feed</b> ${execi 60 ~/bin/feedbin-unread.sh}",
-		"markup": "pango"
+		"full_text": " ${new_mails /mnt/storage/mail/all}"
 	},
 	{
-		"full_text": "<b>${time %a %-d.%-m %H:%M:%S}</b>",
+		"full_text": " ${execi 60 ~/bin/feedbin-unread.sh}"
+	},
+	{
+		"full_text": " <b>${time %a %-d.%-m %H:%M:%S}</b>",
 		"markup": "pango"
 	}
 ],

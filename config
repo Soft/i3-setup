@@ -3,6 +3,8 @@
 set $mod Mod4
 set $term urxvt
 set $wmpath ~/.config/i3
+set $mainfont pango:Cantarell 9
+set $barfont pango:Terminus, FontAwesome 11px
 
 # Colors
 client.focused #3f8f75 #5fd7af #000000 #000000
@@ -10,7 +12,7 @@ client.unfocused #004360 #005f87 #efefef #000000
 client.urgent #ad7600 #ffaf00 #000000 #000000
 
 # Fonts
-font pango:Cantarell 9
+font $mainfont
 
 # Floating
 floating_modifier $mod
@@ -48,6 +50,15 @@ bindsym $mod+u exec --no-startup-id \
 	$wmpath/bin/mpris2-control.sh toggle
 bindsym $mod+i exec --no-startup-id \
 	$wmpath/bin/mpris2-control.sh next
+
+bindsym XF86AudioPrev exec --no-startup-id \
+	$wmpath/bin/mpris2-control.sh prev
+bindsym XF86AudioPlay exec --no-startup-id \
+	$wmpath/bin/mpris2-control.sh toggle
+bindsym XF86AudioNext exec --no-startup-id \
+	$wmpath/bin/mpris2-control.sh next
+bindsym XF86AudioStop exec --no-startup-id \
+	$wmpath/bin/mpris2-control.sh stop
 
 # Window Rules
 for_window [class="mpv"] floating enable
@@ -108,7 +119,7 @@ bindsym $mod+m layout toggle split
 # Workspaces
 workspace_auto_back_and_forth yes
 bindsym $mod+BackSpace workspace back_and_forth
-bindsym $mod+Shift+period exec --no-desktop-id \
+bindsym $mod+Shift+period exec --no-startup-id \
 	$wmpath/bin/swap-ws.py
 
 bindsym $mod+1 workspace 1
@@ -146,19 +157,19 @@ bindsym $mod+q exec \
 
 # Resizing
 mode "resize" {
-	bindsym h resize grow width 10 px or 10 ppt
+	bindsym h resize shrink width 10 px or 10 ppt
 	bindsym j resize grow height 10 px or 10 ppt
 	bindsym k resize shrink height 10 px or 10 ppt
-	bindsym l resize shrink width 10 px or 10 ppt
+	bindsym l resize grow width 10 px or 10 ppt
 	bindsym Escape mode "default"
 	bindsym Control+g mode "default"
 }
 
-bindsym $mod+comma mode "resize"
+bindsym $mod+x mode "resize"
 
 # Bar
 bar {
-	font pango:Terminus 11px
+	font $barfont
 	status_command exec $wmpath/bin/conky-wrap.sh $wmpath
 	position top
 }
