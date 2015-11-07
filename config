@@ -123,7 +123,10 @@ bindsym $mod+b layout stacking
 bindsym $mod+n layout tabbed
 bindsym $mod+m layout toggle split
 
+# Window Operations
+bindsym $mod+g sticky toggle
 bindsym $mod+f fullscreen toggle
+bindsym $mod+d border toggle
 
 # Workspaces
 bindsym $mod+BackSpace workspace back_and_forth
