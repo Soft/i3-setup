@@ -107,6 +107,11 @@ bindsym $mod+Shift+c kill
 bindsym $mod+Shift+e move container to output right
 bindsym $mod+Shift+w move container to output left
 
+bindsym $mod+Tab exec --no-startup-id \
+	$wmpath/bin/focus-shift.py forward
+bindsym $mod+Shift+Tab exec --no-startup-id \
+	$wmpath/bin/focus-shift.py backward
+
 # Splitting
 bindsym $mod+v split h
 bindsym $mod+s split v

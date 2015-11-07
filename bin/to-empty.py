@@ -20,13 +20,13 @@ if __name__ == "__main__":
 	if not first:
 		print("All workspaces are occupied")
 		sys.exit(3)
-	_, action = sys.argv
+	action = sys.argv[1]
 	if action == "focus":
 		i3.workspace(first)
 	elif action == "move":
 		i3.move("container to workspace {}".format(first))
 	else:
-		print("Unknown action")
+		print("Unknown action", file=sys.stderr)
 		sys.exit(2)
 	
 	
