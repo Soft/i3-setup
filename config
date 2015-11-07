@@ -62,7 +62,7 @@ bindsym XF86AudioStop exec --no-startup-id \
 
 # Window Rules
 for_window [class="mpv"] floating enable
-for_window [class="Qemu-*"] floating enable
+for_window [class="Qemu-.*"] floating enable
 for_window [class="Xmessage"] floating enable
 for_window [class="Remote-viewer"] floating enable
 
