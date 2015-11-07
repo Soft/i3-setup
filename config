@@ -117,7 +117,6 @@ bindsym $mod+n layout tabbed
 bindsym $mod+m layout toggle split
 
 # Workspaces
-workspace_auto_back_and_forth yes
 bindsym $mod+BackSpace workspace back_and_forth
 bindsym $mod+Shift+period exec --no-startup-id \
 	$wmpath/bin/swap-ws.py

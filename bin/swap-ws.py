@@ -2,7 +2,12 @@
 
 import i3
 
-for output in [out for out in i3.get_outputs() if out["active"]]:
-	i3.workspace(output['current_workspace'])
-	i3.command('move', 'workspace to output right')
+# Unfortunatelly this doesn't seem to be reliable
+
+outputs = sorted((out for out in i3.get_outputs() if out["active"]), key=lambda o: o["rect"]["x"])
+outputs.append(outputs[0])
+
+for left, right in zip(outputs, outputs[1:]):
+	i3.workspace(left["current_workspace"])
+	i3.move("workspace to output {}".format(right["name"]))
 	
