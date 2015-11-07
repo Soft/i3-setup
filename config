@@ -16,8 +16,8 @@ font $mainfont
 
 # Floating
 floating_modifier $mod
-bindsym $mod+Shift+f floating toggle
-bindsym $mod+f focus mode_toggle
+bindsym $mod+Shift+t floating toggle
+bindsym $mod+t focus mode_toggle
 
 # Launchers
 bindsym Control+space exec \
@@ -123,6 +123,8 @@ bindsym $mod+b layout stacking
 bindsym $mod+n layout tabbed
 bindsym $mod+m layout toggle split
 
+bindsym $mod+f fullscreen toggle
+
 # Workspaces
 bindsym $mod+BackSpace workspace back_and_forth
 bindsym $mod+Shift+period exec --no-startup-id \
@@ -182,3 +184,4 @@ bar {
 	status_command exec $wmpath/bin/conky-wrap.sh $wmpath
 	position top
 }
+
