@@ -2,7 +2,8 @@
 
 import i3
 import sys
-from utils import find_matching, workspace
+from operator import itemgetter
+from utils import find_matching, focused_tree, window
 
 def focused_workspace():
 	return next((w for w in i3.get_workspaces() if w["focused"]), None)
@@ -12,9 +13,8 @@ if __name__ == "__main__":
 		print("{} forward|backward".format(sys.argv[0]), file=sys.stderr)
 		sys.exit(1)
 	action = sys.argv[1]
-	focused = focused_workspace()
-	tree = next((w for w in find_matching(workspace()) if w["num"] == focused["num"]), None)
-	windows = sorted([w for w in find_matching(lambda w: w["window"], tree)], key=lambda w: w["window"])
+	workspace = focused_tree()
+	windows = sorted(find_matching(window, workspace), key=itemgetter("window"))
 	index = next(i for i, w in enumerate(windows) if w["focused"])
 	if action == "forward":
 		i3.focus(con_id=windows[(index + 1) % len(windows)]["id"])

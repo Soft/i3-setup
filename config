@@ -76,7 +76,7 @@ bindsym $mod+o focus parent
 bindsym $mod+p focus child
 
 bindsym $mod+e focus output right
-bindsym $mod+w focus output right
+bindsym $mod+w focus output left
 
 mode "move" {
 	 bindsym h focus left
@@ -106,6 +106,8 @@ bindsym $mod+Shift+c kill
 
 bindsym $mod+Shift+e move container to output right
 bindsym $mod+Shift+w move container to output left
+
+bindsym $mod+Shift+dead_grave move workspace to output right
 
 bindsym $mod+Tab exec --no-startup-id \
 	$wmpath/bin/focus-shift.py forward
@@ -152,6 +154,9 @@ bindsym $mod+plus exec --no-startup-id \
 	$wmpath/bin/to-empty.py focus
 bindsym $mod+Shift+plus exec --no-startup-id \
 	$wmpath/bin/to-empty.py move
+
+bindsym $mod+Shift+space exec --no-startup-id \
+	$wmpath/bin/reset-layout.py
 
 # Reloading and quiting
 bindsym $mod+r reload
