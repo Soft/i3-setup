@@ -14,19 +14,20 @@ pad_percents 2
 TEXT
 [
 	{
+		"full_text": "${execi 10 ~/.config/i3/bin/mpris2-control.sh info}"
+	},
+	{
 ${if_running xautolock}
 		"full_text": ""
 ${else}
 		"full_text": ""
 ${endif}
 	},
-	{
 ${if_up tun0}
+	{
 		"full_text": ""
-${else}
-		"full_text": ""
-${endif}
 	},
+${endif}
 	{
 		"full_text": " $cpu%"
 	},

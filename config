@@ -39,7 +39,7 @@ bindsym $mod+Shift+b exec \
 bindsym $mod+Shift+p exec \
 	$wmpath/bin/run-or-raise.py class Pcmanfm pcmanfm
 bindsym $mod+Shift+d exec \
-	$wmpath/bin/run-or-raise.py class Emacs emacsclient -c -n
+	$wmpath/bin/run-or-raise.py class Emacs emacsclient -c -n -a ""
 bindsym $mod+Shift+a exec --no-startup-id \
 	$wmpath/bin/run-or-raise.py title tmux urxvt -e tmux attach
 
@@ -59,6 +59,13 @@ bindsym XF86AudioNext exec --no-startup-id \
 	$wmpath/bin/mpris2-control.sh next
 bindsym XF86AudioStop exec --no-startup-id \
 	$wmpath/bin/mpris2-control.sh stop
+
+bindsym XF86AudioRaiseVolume exec --no-startup-id \
+	amixer set Master 5%+ unmute
+bindsym XF86AudioLowerVolume exec --no-startup-id \
+	amixer set Master 5%- unmute
+bindsym XF86AudioMute exec --no-startup-id \
+	amixer set Master toggle
 
 # Window Rules
 for_window [class="mpv"] floating enable
@@ -113,6 +120,9 @@ bindsym $mod+Tab exec --no-startup-id \
 	$wmpath/bin/focus-shift.py forward
 bindsym $mod+Shift+Tab exec --no-startup-id \
 	$wmpath/bin/focus-shift.py backward
+
+bindsym $mod+section exec --no-startup-id \
+	$wmpath/bin/scratchpad-toggle.py
 
 # Splitting
 bindsym $mod+v split h

@@ -18,7 +18,7 @@ function control {
 	dbus-send --print-reply \
 		--dest=org.mpris.MediaPlayer2.$target \
 		/org/mpris/MediaPlayer2 \
-		org.mpris.MediaPlayer2.Player.$1
+		org.mpris.MediaPlayer2.Player.$1 2> /dev/null
 }
 
 function get-metadata {
@@ -45,7 +45,7 @@ function info {
 	artist=$(find-value "xesam:artist" "$strings")
 	song=$(find-value "xesam:title" "$strings")
 
-	[[ ! "$artist"  =~ ^xesam: ]] && echo "$artist - $song"
+	[[ ! "$artist"  =~ ^xesam: ]] && echo " $artist - $song" | sed "s/\"/\\\\\"/g"
 }
 
 case "$1" in
