@@ -14,7 +14,7 @@ pad_percents 2
 TEXT
 [
 	{
-		"full_text": "${execi 10 ~/.config/i3/bin/mpris2-control.sh info}"
+		"full_text": "${execi 10 bin/mpris2-control.sh info}"
 	},
 	{
 ${if_running xautolock}
