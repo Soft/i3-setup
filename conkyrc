@@ -44,7 +44,7 @@ ${endif}
 		"full_text": " ${new_mails /mnt/storage/mail/all}"
 	},
 	{
-		"full_text": " ${execi 60 ~/bin/feedbin-unread.sh}"
+		"full_text": "${execi 60 bin/feedbin-unread.sh}"
 	},
 	{
 		"full_text": " <b>${time %a %-d.%-m %H:%M:%S}</b>",
