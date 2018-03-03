@@ -38,6 +38,9 @@ ${endif}
 		"full_text": " ${fs_free /mnt/storage}"
 	},
 	{
+	{
+		"full_text": "${execi 30 bin/audio-output.sh alsa_card.pci-0000_00_1b.0}"
+	},
 		"full_text": " ${new_mails /mnt/storage/mail/all}"
 	},
 	{
