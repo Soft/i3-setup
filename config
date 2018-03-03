@@ -1,47 +1,174 @@
 
 # Variables
 set $mod Mod4
-set $term urxvt
+# set $term sakura
+set $term gnome-terminal
 set $wmpath ~/.config/i3
-set $mainfont pango:Cantarell 9
-set $barfont pango:Terminus, FontAwesome 11px
+# set $main_font pango:Terminus 9
+# set $main_font pango:Open Sans Semi-Bold 9
+set $main_font pano:Roboto Bold 9
 
-# Colors
-client.focused #3f8f75 #5fd7af #000000 #000000
-client.unfocused #004360 #005f87 #efefef #000000
-client.urgent #ad7600 #ffaf00 #000000 #000000
+set $tray_output HDMI-3
+set $bar_font pango:Noto Sans, FontAwesome 8
+# set $bar_font pango:Roboto, FontAwesome 8
+
+set $bar_background #000000
+set $bar_statusline #ffffff
+set $bar_separator #666666
+
+#                           border  bg      text
+set $bar_focused_workspace  #0D47A1 #1565C0 #ffffff
+set $bar_active_workspace   #333333 #5f676a #ffffff
+set $bar_inactive_workspace #333333 #222222 #888888
+set $bar_urgent_workspace   #f57f17 #f9a825 #ffffff
+set $bar_binding_mode       #2f343a #900000 #ffffff
+
+# Window Colors
+client.focused          #0D47A1 #1565C0 #ffffff #000000
+client.focused_inactive #333333 #5f676a #ffffff #000000
+client.unfocused        #333333 #222222 #ffffff #000000
+client.urgent           #f57f17 #f9a825 #ffffff #000000
+
+#                       border  bg      text    ind
+# client.focused          #118840 #10a94d #ffffff #000000
+# client.focused_inactive #263238 #37474f #ffffff #000000
+# client.unfocused        #4E342E #5D4037 #ffffff #000000
+# client.urgent           #f57f17 #f9a825 #ffffff #000000
+
+#                         border  bg      text    ind
+# client.focused          #3f8f75 #5fd7af #000000 #000000
+# client.focused_inactive #3a3a3a #616161 #efefef #000000
+# client.unfocused        #004360 #005f87 #efefef #000000
+# client.urgent           #ad7600 #ffaf00 #000000 #000000
 
 # Fonts
-font $mainfont
+font $main_font
 
 # Floating
 floating_modifier $mod
 bindsym $mod+Shift+t floating toggle
 bindsym $mod+t focus mode_toggle
 
+# Window Borders
+# new_window pixel 2
+# new_float normal
+
+hide_edge_borders smart
+
+# Autorun
+
+exec --no-startup-id \
+	 $wmpath/i3rc
+
 # Launchers
-bindsym Control+space exec \
-	"j4-dmenu-desktop --dmenu='rofi -dmenu -i'"
-bindsym $mod+a exec \
+bindsym Control+space exec --no-startup-id \
+	"rofi -combi-modi drun,run -show combi -matching fuzzy -i -modi combi -show-icons"
+bindsym $mod+a exec --no-startup-id \
 	rofi -show window
 
 # Application Bindings
 bindsym $mod+Shift+Return exec --no-startup-id \
 	$term
 bindsym Print exec --no-startup-id \
-	"scrot -q100"
+	scrot -q100
 bindsym $mod+Shift+g exec --no-startup-id \
+	slock
+bindsym XF86Sleep exec --no-startup-id \
 	slock
 bindsym $mod+Shift+s exec --no-startup-id \
 	killall -USR1 redshift
-bindsym $mod+Shift+b exec \
-	$wmpath/bin/run-or-raise.py class Firefox firefox
-bindsym $mod+Shift+p exec \
-	$wmpath/bin/run-or-raise.py class Pcmanfm pcmanfm
-bindsym $mod+Shift+d exec \
-	$wmpath/bin/run-or-raise.py class Emacs emacsclient -c -n -a ""
+bindsym $mod+Shift+b exec --no-startup-id \
+	run-or-raise 'role = "browser"' firefox
+bindsym $mod+Shift+p exec --no-startup-id \
+	run-or-raise 'class = "Pcmanfm"' pcmanfm
+bindsym $mod+p exec --no-startup-id \
+	run-or-raise 'name = "ranger"' $term --role ranger -e ranger
+bindsym $mod+aring exec --no-startup-id \
+	run-or-raise 'class = "Lxtask"' lxtask
+bindsym $mod+Shift+aring exec --no-startup-id \
+	run-or-raise 'name = "htop"' $term --role htop -e htop
+bindsym $mod+Shift+d exec --no-startup-id \
+	run-or-raise 'class = "Emacs"' emacsclient -c -n -a ""
+	# run-or-raise 'class = "Emacs"' emacs
+bindsym $mod+Shift+f exec --no-startup-id \
+	run-or-raise 'class = "Evince"' evince
 bindsym $mod+Shift+a exec --no-startup-id \
-	$wmpath/bin/run-or-raise.py title tmux urxvt -e tmux attach
+	run-or-raise 'name = "tmux"' $term --role tmux -e "tmux new-session -A -D -s irc weechat"
+bindsym XF86Messenger exec --no-startup-id \
+	run-or-raise 'name = "tmux"' $term --role tmux -e "tmux new-session -A -D -s irc weechat"
+bindsym XF86Tools exec --no-startup-id \
+	"toggle-sink.sh alsa_card.pci-0000_00_1b.0"
+bindsym $mod+Shift+u exec --no-startup-id \
+	run-or-raise 'class = "Spotify"' spotify
+bindsym $mod+Shift+i exec --no-startup-id \
+	run-or-raise 'class = "Gnome-mpv"' gnome-mpv
+bindsym $mod+Shift+m exec --no-startup-id \
+	run-or-raise 'name = "mutt"' $term --role mutt -e "tmux new-session -A -D -s mail mutt"
+bindsym XF86Mail exec --no-startup-id \
+	run-or-raise 'name = "mutt"' $term --role mutt -e "tmux new-session -A -D -s mail mutt"
+bindsym $mod+odiaeresis exec --no-startup-id \
+	run-or-raise 'name = "term"' $term --role term -e "tmux new-session -A -D -s term bash"
+
+# Application Bindings without autofocus
+
+mode "new" {
+	bindsym $mod+Shift+b exec --no-startup-id \
+		firefox; mode "default"
+	bindsym $mod+Shift+p exec --no-startup-id \
+		pcmanfm; mode "default"
+	bindsym $mod+p exec --no-startup-id \
+		$term --role ranger -e ranger; mode "default"
+	bindsym $mod+aring exec --no-startup-id \
+		lxtask; mode "default"
+	bindsym $mod+Shift+aring exec --no-startup-id \
+		$term --role htop -e htop; mode "default"
+	bindsym $mod+Shift+d exec --no-startup-id \
+		emacsclient -c -n -a ""; mode "default"
+	bindsym $mod+Shift+f exec --no-startup-id \
+		zathura; mode "default"
+	bindsym $mod+Shift+i exec --no-startup-id \
+		mpv --profile=pseudo-gui; mode "default"
+
+	bindsym Escape mode "default"
+	bindsym Control+g mode "default"
+}
+
+bindsym $mod+apostrophe mode "new"
+
+# Additional External Commands
+
+mode "command" {
+	bindsym d exec --no-startup-id \
+		dict-lookup.sh; mode "default"
+	bindsym s exec --no-startup-id \
+		save-quote.sh; mode "default"
+	bindsym g exec --no-startup-id \
+		xset dpms force suspend; mode "default"
+	bindsym plus exec --no-startup-id \
+		compton-trans -c +5
+	bindsym minus exec --no-startup-id \
+		compton-trans -c -- -5
+	bindsym c exec --no-startup-id \
+		sh -c "killw -p `pfw`"
+	bindsym f \
+		fullscreen toggle global; mode "default"
+	bindsym r exec --no-startup-id \
+		xdotool getactivewindow set_window --name $(echo | rofi -dmenu -mesg 'Rename')
+
+	bindsym i exec --no-startup-id \
+		ponymix increase 1
+	bindsym y exec --no-startup-id \
+		ponymix decrease 1
+	bindsym u exec --no-startup-id \
+		ponymix toggle; mode "default"
+	bindsym o exec --no-startup-id \
+		"toggle-sink.sh alsa_card.pci-0000_00_1b.0"; mode "default"
+
+	bindsym Escape mode "default"
+	bindsym Control+g mode "default"
+}
+
+bindsym $mod+x mode "command"
 
 # Media Keys
 bindsym $mod+y exec --no-startup-id \
@@ -61,17 +188,32 @@ bindsym XF86AudioStop exec --no-startup-id \
 	$wmpath/bin/mpris2-control.sh stop
 
 bindsym XF86AudioRaiseVolume exec --no-startup-id \
-	amixer set Master 5%+ unmute
+	ponymix increase 1
 bindsym XF86AudioLowerVolume exec --no-startup-id \
-	amixer set Master 5%- unmute
+	ponymix decrease 1
 bindsym XF86AudioMute exec --no-startup-id \
-	amixer set Master toggle
+	ponymix toggle
 
 # Window Rules
+for_window [class="Firefox"] border pixel 2
+for_window [class="Emacs"] border pixel 2
+for_window [class="Pcmanfm"] border pixel 2
+for_window [class="Gnome-terminal"] border pixel 2
+for_window [class="Thunderbird"] border pixel 2
+for_window [class="Spotify"] border none
+for_window [class="Code"] border none
+
+# Rules
+assign [class="Spotify"] 10
+
 for_window [class="mpv"] floating enable
 for_window [class="Qemu-.*"] floating enable
 for_window [class="Xmessage"] floating enable
 for_window [class="Remote-viewer"] floating enable
+for_window [class="Qpaeq"] floating enable
+for_window [class="Pulseeffects"] floating enable
+for_window [class="Qalculate-gtk"] floating enable
+for_window [title="Three"] floating enable
 
 # Focus
 bindsym $mod+h focus left
@@ -79,23 +221,23 @@ bindsym $mod+j focus down
 bindsym $mod+k focus up
 bindsym $mod+l focus right
 
-bindsym $mod+o focus parent
-bindsym $mod+p focus child
+bindsym $mod+comma focus parent
+bindsym $mod+period focus child
 
 bindsym $mod+e focus output right
 bindsym $mod+w focus output left
 
 mode "move" {
-	 bindsym h focus left
-	 bindsym j focus down
-	 bindsym k focus up
-	 bindsym l focus right
+	bindsym h focus left
+	bindsym j focus down
+	bindsym k focus up
+	bindsym l focus right
 
-	 bindsym o focus parent
-	 bindsym p focus child
+	bindsym comma focus parent
+	bindsym period focus child
 
-	 bindsym e focus output right
-	 bindsym w focus output right
+	bindsym e focus output right
+	bindsym w focus output right
 
 	bindsym Escape mode "default"
 	bindsym Control+g mode "default"
@@ -129,9 +271,12 @@ bindsym $mod+v split h
 bindsym $mod+s split v
 
 # Layouts
+workspace_layout tabbed
 bindsym $mod+b layout stacking
 bindsym $mod+n layout tabbed
 bindsym $mod+m layout toggle split
+
+bindsym $mod+space layout toggle
 
 # Window Operations
 bindsym $mod+g sticky toggle
@@ -140,8 +285,9 @@ bindsym $mod+d border toggle
 
 # Workspaces
 bindsym $mod+BackSpace workspace back_and_forth
-bindsym $mod+Shift+period exec --no-startup-id \
-	$wmpath/bin/swap-ws.py
+bindsym $mod+Shift+BackSpace move workspace back_and_forth
+bindsym $mod+Shift+period \
+	[con_mark="HDMI-3"] swap container with "HDMI-2"
 
 bindsym $mod+1 workspace 1
 bindsym $mod+2 workspace 2
@@ -173,10 +319,13 @@ bindsym $mod+Shift+plus exec --no-startup-id \
 bindsym $mod+Shift+space exec --no-startup-id \
 	$wmpath/bin/reset-layout.py
 
+workspace 1 output HDMI-3
+workspace 10 output HDMI-2
+
 # Reloading and quiting
 bindsym $mod+r reload
 bindsym $mod+Shift+r restart
-bindsym $mod+q exec \
+bindsym $mod+q exec --no-startup-id \
 	i3-nagbar -t warning -m 'Do you really want to exit i3?' -b 'Yes' 'i3-msg exit'
 
 # Resizing
@@ -185,16 +334,30 @@ mode "resize" {
 	bindsym j resize grow height 10 px or 10 ppt
 	bindsym k resize shrink height 10 px or 10 ppt
 	bindsym l resize grow width 10 px or 10 ppt
+
 	bindsym Escape mode "default"
 	bindsym Control+g mode "default"
 }
 
-bindsym $mod+x mode "resize"
+bindsym $mod+z mode "resize"
 
 # Bar
 bar {
-	font $barfont
+	font $bar_font
 	status_command exec $wmpath/bin/conky-wrap.sh $wmpath
+	tray_output $tray_output
 	position top
+
+	colors {
+		background $bar_background
+		statusline $bar_statusline
+		separator $bar_separator
+
+		focused_workspace  $bar_focused_workspace
+		active_workspace   $bar_active_workspace
+		inactive_workspace $bar_inactive_workspace
+		urgent_workspace   $bar_urgent_workspace
+		binding_mode       $bar_binding_mode
+	}
 }
 
