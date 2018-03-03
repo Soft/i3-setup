@@ -38,10 +38,10 @@ ${endif}
 		"full_text": " ${fs_free /mnt/storage}"
 	},
 	{
-		"full_text": " ${weather http://weather.noaa.gov/pub/data/observations/metar/stations/ EFTU temperature - }℃"
+		"full_text": " ${new_mails /mnt/storage/mail/all}"
 	},
 	{
-		"full_text": " ${new_mails /mnt/storage/mail/all}"
+		"full_text": "${execi 1800 bin/weather.sh Turku,fi}"
 	},
 	{
 		"full_text": "${execi 60 bin/feedbin-unread.sh}"
