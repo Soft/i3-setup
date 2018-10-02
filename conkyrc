@@ -1,17 +1,19 @@
-# This file contains special characters that are best viewed with font awesome
-# installed.
+-- This file contains special characters that are best viewed with font awesome
+-- installed.
 
-background no
-cpu_avg_samples 2
-net_avg_samples 2
-no_buffers yes
-out_to_stderr no
-update_interval 1.0
-uppercase no
-use_spacer left
-pad_percents 2
+conky.config = {
+    background = no,
+    cpu_avg_samples = 2,
+    net_avg_samples = 2,
+    no_buffers = true,
+    out_to_stderr = false,
+    update_interval = 1.0,
+    uppercase = false,
+    use_spacer = 'left',
+    pad_percents = 2,
+}
 
-TEXT
+conky.text = [[
 [
 	{
 		"full_text": "${execi 10 bin/mpris2-control.sh info}"
@@ -29,6 +31,9 @@ ${if_up tun0}
 	},
 ${endif}
 	{
+		"full_text": "${execi 30 bin/audio-output.sh alsa_card.pci-0000_00_1b.0}"
+	},
+	{
 		"full_text": " $cpu%"
 	},
 	{
@@ -38,9 +43,6 @@ ${endif}
 		"full_text": " ${fs_free /mnt/storage}"
 	},
 	{
-	{
-		"full_text": "${execi 30 bin/audio-output.sh alsa_card.pci-0000_00_1b.0}"
-	},
 		"full_text": " ${new_mails /mnt/storage/mail/all}"
 	},
 	{
@@ -54,3 +56,4 @@ ${endif}
 		"markup": "pango"
 	}
 ],
+]]

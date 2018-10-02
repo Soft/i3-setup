@@ -3,10 +3,11 @@
 set $mod Mod4
 # set $term sakura
 set $term gnome-terminal
+# set $term alacritty
 set $wmpath ~/.config/i3
 # set $main_font pango:Terminus 9
 # set $main_font pango:Open Sans Semi-Bold 9
-set $main_font pano:Roboto Bold 9
+set $main_font pango:Noto Sans Bold 8
 
 set $tray_output HDMI-3
 set $bar_font pango:Noto Sans, FontAwesome 8
@@ -69,10 +70,10 @@ bindsym $mod+a exec --no-startup-id \
 # Application Bindings
 bindsym $mod+Shift+Return exec --no-startup-id \
 	$term
-bindsym Print exec --no-startup-id \
+bindsym --release Print exec --no-startup-id \
 	scrot -q100
-bindsym $mod+Shift+g exec --no-startup-id \
-	slock
+bindsym --release $mod+Shift+g exec --no-startup-id \
+  slock
 bindsym XF86Sleep exec --no-startup-id \
 	slock
 bindsym $mod+Shift+s exec --no-startup-id \
@@ -90,8 +91,8 @@ bindsym $mod+Shift+aring exec --no-startup-id \
 bindsym $mod+Shift+d exec --no-startup-id \
 	run-or-raise 'class = "Emacs"' emacsclient -c -n -a ""
 	# run-or-raise 'class = "Emacs"' emacs
-bindsym $mod+Shift+f exec --no-startup-id \
-	run-or-raise 'class = "Evince"' evince
+# bindsym $mod+Shift+f exec --no-startup-id \
+# 	run-or-raise 'class = "Evince"' evince
 bindsym $mod+Shift+a exec --no-startup-id \
 	run-or-raise 'name = "tmux"' $term --role tmux -e "tmux new-session -A -D -s irc weechat"
 bindsym XF86Messenger exec --no-startup-id \
@@ -148,12 +149,14 @@ mode "command" {
 		compton-trans -c +5
 	bindsym minus exec --no-startup-id \
 		compton-trans -c -- -5
-	bindsym c exec --no-startup-id \
+	bindsym k exec --no-startup-id \
 		sh -c "killw -p `pfw`"
 	bindsym f \
 		fullscreen toggle global; mode "default"
 	bindsym r exec --no-startup-id \
 		xdotool getactivewindow set_window --name $(echo | rofi -dmenu -mesg 'Rename')
+  bindsym --release c exec --no-startup-id \
+    xcolor -s; mode "default"
 
 	bindsym i exec --no-startup-id \
 		ponymix increase 1
@@ -199,6 +202,7 @@ for_window [class="Firefox"] border pixel 2
 for_window [class="Emacs"] border pixel 2
 for_window [class="Pcmanfm"] border pixel 2
 for_window [class="Gnome-terminal"] border pixel 2
+for_window [class="Alacritty"] border pixel 2
 for_window [class="Thunderbird"] border pixel 2
 for_window [class="Spotify"] border none
 for_window [class="Code"] border none
